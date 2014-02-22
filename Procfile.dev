@@ -1,0 +1,2 @@
+zk: rake run:zk
+kafka: rake run:kafka

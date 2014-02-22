@@ -1,0 +1,5 @@
+{
+	"ImportPath": "kafka-http",
+	"GoVersion": "go1.2",
+	"Deps": []
+}
