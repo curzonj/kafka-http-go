@@ -1,5 +1,15 @@
 {
 	"ImportPath": "kafka-http",
 	"GoVersion": "go1.2",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "code.google.com/p/snappy-go/snappy",
+			"Comment": "null-15",
+			"Rev": "12e4b4183793ac4b061921e7980845e750679fd0"
+		},
+		{
+			"ImportPath": "github.com/Shopify/sarama",
+			"Rev": "68e40800ed662734645eae258303baf8e1c41342"
+		}
+	]
 }
