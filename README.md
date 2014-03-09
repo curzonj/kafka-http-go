@@ -24,11 +24,6 @@ Don't use this for anything. It's just my play ground for go and kafka.
 ## TODO
 
 * configuration
-* async threading, there will be lots of long running open connections
 * authentication
-* better creation of topics
-* streaming HTTP
-* websockets
-* topic name patterns for consuming and multiple topics per publish
 * internal metrics
 
