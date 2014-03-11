@@ -36,3 +36,4 @@ PORT=3000
 * sarama refers it's logging to `Logger`. Find out where that is and how to get it going
   to stderr
 * sarama supports tons of configuration options, we should support more of them
+* use the json schema stuff to generate a ruby kafka http api client, :)
