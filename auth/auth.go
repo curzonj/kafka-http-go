@@ -22,6 +22,7 @@ func AuthenticateHttpRequest(w http.ResponseWriter, r *http.Request) bool {
 	l := r.Header.Get("Authorization")
 	user, err := Parse(l)
 	if err != nil {
+		// TODO if there is no auth header present, give the correct error code
 		http.Error(w, "Unable to parse headers.", 400)
 		return false
 	}

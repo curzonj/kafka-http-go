@@ -17,7 +17,7 @@ PORT=3000
 * curl -i http://changeme@localhost:3000/topics/test
 * curl -i http://changeme@localhost:3000/topics/test/0
 * ab -k -p data.json -T application/json -n 100000 -c 10 -A changeme: http://localhost:3000/publish
-* cat | log-shuttle -logs-url=http://changeme@localhost:3000/publish -msgid="-"
+* cat | log-shuttle -logs-url=http://changeme@localhost:3000/publish?topic=test -msgid="-"
 
 ## Related links
 
@@ -30,9 +30,9 @@ PORT=3000
 
 ## TODO
 
-* configuration
-* authentication
-* internal metrics
 * http polling topics
-* do we need to support more that 1 connection per goroutine?
-
+* go-metrics uses mutexes on each metric, for small messages and low io/network
+  latency there is more contention on those mutexes. At what point is that an issue?
+* sarama refers it's logging to `Logger`. Find out where that is and how to get it going
+  to stderr
+* sarama supports tons of configuration options, we should support more of them

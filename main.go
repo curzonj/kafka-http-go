@@ -1,51 +1,33 @@
 package main
 
 import (
-	"github.com/curzonj/kafka-http/auth"
 	"log"
 	"net/http"
 )
 
 var config *Config
 
-func NoContent(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Header.Get("Content-Type"))
-
-	w.WriteHeader(http.StatusNoContent)
+func init() {
+	config = new(Config)
+	config.Configure()
 }
 
-func PublishByContentType(w http.ResponseWriter, r *http.Request) {
-	requestMeter.Mark(1)
-
-	if r.Method != "POST" {
-		http.Error(w, "Method must be POST.", 400)
-		return
-	}
-
-	authenticated := auth.AuthenticateHttpRequest(w, r)
-	if authenticated == false {
-		return
-	}
-
-	switch r.Header.Get("Content-Type") {
-	case "application/logplex-1":
-		HandleSyslog(w, r)
-	case "application/json":
-		PublishToKafka(w, r)
-	default:
-		w.WriteHeader(http.StatusUnsupportedMediaType)
-	}
+func HealthCheck(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
 }
 
 func main() {
-	config = new(Config)
-
 	connectToKafka()
 
-	http.HandleFunc("/", NoContent)
-	http.HandleFunc("/publish", PublishByContentType)
+	// TODO handle these funcs via a wrapper
+	// so that not every handler has to deal
+	// with authentication and request metrics
 
-	err := http.ListenAndServe(":"+config.HttpPort(), nil)
+	http.HandleFunc("/health", HealthCheck)
+	http.HandleFunc("/publish", HandlePublishByContentType)
+	http.HandleFunc("/topics/", HandleTopicConsumers)
+
+	err := http.ListenAndServe(":"+config.HttpPort, nil)
 
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
