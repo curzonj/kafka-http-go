@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/bmizerany/lpx"
-	"github.com/curzonj/kafka-http/auth"
+	"github.com/curzonj/kafka-http-go/auth"
 	"log"
 	"net/http"
 	"net/url"

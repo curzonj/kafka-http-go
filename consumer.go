@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	kafka "github.com/Shopify/sarama"
-	"github.com/curzonj/kafka-http/auth"
+	"github.com/curzonj/kafka-http-go/auth"
 	"net/http"
 )
 
