@@ -1,5 +1,5 @@
 {
-	"ImportPath": "kafka-http",
+	"ImportPath": "github.com/curzonj/kafka-http-go",
 	"GoVersion": "go1.2",
 	"Deps": [
 		{
@@ -10,6 +10,14 @@
 		{
 			"ImportPath": "github.com/Shopify/sarama",
 			"Rev": "68e40800ed662734645eae258303baf8e1c41342"
+		},
+		{
+			"ImportPath": "github.com/bmizerany/lpx",
+			"Rev": "af85cf24c1567bcb5a2e4c21597cc049eab31f55"
+		},
+		{
+			"ImportPath": "github.com/rcrowley/go-metrics",
+			"Rev": "ea09f7d79be2a99bb6989c7b6ada5fea44b2cb10"
 		}
 	]
 }
