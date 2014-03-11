@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/bmizerany/lpx"
@@ -81,14 +82,10 @@ func SyslogRequestToKafka(r *http.Request) error {
 	messageHandler := getMessageHandler(r.URL)
 
 	for reader.Next() {
-		bytes := reader.Bytes()
-		sz := len(bytes)
-		newLine := bytes[sz-1]
-		if newLine == 10 {
-			bytes = bytes[:sz-1]
-		}
+		line := reader.Bytes()
+		line = bytes.Trim(line, "\n")
 
-		err := messageHandler(topic, nil, kafka.ByteEncoder(bytes))
+		err := messageHandler(topic, nil, kafka.ByteEncoder(line))
 		if err != nil {
 			return err
 		}
@@ -121,8 +118,6 @@ func JSONRequestToKafka(r *http.Request) error {
 			if err != nil {
 				return err
 			}
-
-			// TODO handle nested JSON messages
 		}
 	}
 

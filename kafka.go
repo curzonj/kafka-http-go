@@ -19,14 +19,23 @@ var kafkaClient *kafka.Client
 func connectToKafka() {
 	var err error
 
-	kafkaClient, err = kafka.NewClient(CLIENTID, config.KafkaBrokers, &kafka.ClientConfig{MetadataRetries: 1, WaitForElection: 250 * time.Millisecond})
+	kafkaClient, err = kafka.NewClient(CLIENTID, config.KafkaBrokers, &kafka.ClientConfig{
+		MetadataRetries: 1,
+		WaitForElection: 250 * time.Millisecond,
+	})
+
 	if err != nil {
 		panic(err)
 	} else {
 		log.Println("at=connectedToKafka")
 	}
 
-	kafkaProducer, err = kafka.NewProducer(kafkaClient, &kafka.ProducerConfig{RequiredAcks: kafka.WaitForAll, MaxBufferTime: config.KafkaMaxBufferTime, MaxBufferedBytes: config.KafkaMaxBufferedBytes})
+	kafkaProducer, err = kafka.NewProducer(kafkaClient, &kafka.ProducerConfig{
+		RequiredAcks:     kafka.WaitForAll,
+		MaxBufferTime:    config.KafkaMaxBufferTime,
+		MaxBufferedBytes: config.KafkaMaxBufferedBytes,
+	})
+
 	if err != nil {
 		panic(err)
 	}
