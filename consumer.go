@@ -100,7 +100,8 @@ func HandlePartitionConsumer(topic string, partition int32, w http.ResponseWrite
 
 	// TODO switch to the lower level api with explicit fetches
 	// so that we don't fetch more than we need to and so we
-	// can return the highwatermark
+	// can return the highwatermark and so that we don't wait
+	// on the channel if there are no messages currently available
 	// TODO support binary keys and values, that causes the
 	// json encoder to render them as base64 encoded strings
 	for event := range eventsChan {
