@@ -29,6 +29,22 @@ PORT=3000
 * http://godoc.org/github.com/Shopify/sarama
 * http://godoc.org/github.com/kr/logfmt
 
+## Generic webhook support
+
+/publish?param=1&topic=kafka-topic -->
+
+```json
+{
+        "request_id": "uuid, either from the request or newly generated"
+        "webhook": {
+                "param": 1
+        },
+        "payload": {
+                ...
+        }
+}
+```
+
 ## TODO
 
 * don't wait if there are no messages to consume
