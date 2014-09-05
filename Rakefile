@@ -1,20 +1,22 @@
-JARFILE = 'kafka/core/target/scala-2.8.0/kafka_2.8.0-0.8.1.jar'
+file 'kafka.tgz' do
+  sh "git clone https://github.com/apache/kafka.git"
+end
+
+VDIR = "kafka_2.9.2-0.8.1.1"
+
+directory VDIR => [ 'kafka.tgz' ] do
+  sh "tar xzf kafka.tgz"
+end
+
+file 'kafka' => [ VDIR ] do
+  sh "ln -sf #{VDIR} kafka"
+end
+
+task :build => [ 'kafka' ]
 
 def sh_cd(cmd)
   sh "cd kafka && #{cmd}"
 end
-
-directory 'kafka' do
-  sh "git clone https://github.com/apache/kafka.git"
-end
-
-file JARFILE => [ :kafka ]do
-  %w(update package assembly-package-dependency).each do |cmd|
-    sh_cd "./sbt #{cmd}"
-  end
-end
-
-task :build => [ JARFILE ]
 
 namespace :topic do
   task :create do
